@@ -34,7 +34,7 @@ When our image is “executed to run”, in runs in a container, which as we’v
 
 # **Docker Deployment**
 
-![See it in the browser](img/deployment.flow.png)
+![See it in the browser](img/deployment-flow.png)
 
 ## **Step 1 - Create Run and Test the API on local machine**
 ### *Create an Application*

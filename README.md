@@ -127,7 +127,7 @@ Line by Line explanation;
 
 To minimise the footprint of the image, we include a file in the root of our project called: ***.dockerignore***. Add to this file the following contents:
 
-![image-20200719120910650](img\image-20200719120910650.png)
+![image-20200719120910650](img/image-20200719120910650.png)
 
 ### *2.2 - Build (Create) Image*
 

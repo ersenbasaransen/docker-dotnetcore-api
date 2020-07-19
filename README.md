@@ -1,8 +1,8 @@
-# **docker-dotnetcore-api**
-Step-by-Step how-to build and package a .NET Core API as a Docker image, then deploy and spin that image up as Container on Windows, Linux hosts.
+# **Step By Step Dockerizing .NET Core API**
+This article demonstrates Step-by-Step how-to build and package a .NET Core API as a Docker image, then deploy and spin that image up as Container on Windows, Linux hosts.
 
 # **What is Docker?**
-Docker is a **"containerization"** platform, enabling to package applications into images and run them as **“containers”** on any platform that can run Docker. So “It works on my local” argument is an empty word with Docker, as Docker images contain everything needed for the app to run. Cute!
+Docker is a **"containerization"** platform, enabling to package applications into images and run them as **“containers”** on any platform that can run Docker. So “It works on my local” argument is an empty word with Docker, as Docker images contain everything needed for the app to run.
 
 # Containers vs. Virtual Machines
 In short;
@@ -14,22 +14,22 @@ In short;
 *ref* https://cloudblogs.microsoft.com/opensource/2019/07/15/how-to-get-started-containers-docker-kubernetes/
 
 # Why Use Docker?
-- Portability : Containers are self-contained so they can run on any platform that runs Docker.
-- Scalability : Additional use of **“orchestration”** can spin up multiple container instances to support increased load.
-- Performance : Containers generally perform better than their VM counterparts.
+- **Portability :** Containers are self-contained so they can run on any platform as long as that runs Docker.
+- **Scalability :** Additional use of *“orchestration”* can spin up multiple container instances to support increased load.
+- **Performance :** Containers generally perform better than their VM counterparts.
 
 # Image
 A docker image is a file that contains the “blueprint” or instructions on how our code is expected to run in Docker, so it includes things like dependencies and instructions on how our app should start.
 
 # Container
-When an image is “executed to run”, in runs in a container, which is highly portable and independent, (from any other running containers). We can think an image as a class and a container as an object instance of that class.
+When an image is “executed to run”, it runs in a container, which is highly portable and independent, (from any other running containers). We can think an image as a class and a container as an object instance of that class.
 
-# Overall Docker Deployment Flow
+# Overall Dockerizing Flow
 
 ![See it in the browser](img/deployment-flow.png)
 
 
-# **End to End Steps**
+# **Lets start**
 
 ## **Step 0 - Prepare Ingredients**
  - VS Code or another IDE of your choice (free) [https://code.visualstudio.com/](https://code.visualstudio.com/)
@@ -39,7 +39,7 @@ When an image is “executed to run”, in runs in a container, which is highly 
  - *(optional)* Some local machine to test your deployment
 
 ## **Step 1 - Create the API**
-### *1.1 - Create an Application*
+### *1.1 - Create an AspDotNetCore Web API Application*
 
 ```sh
 $ dotnet new webapi -n docker-dotnetcore-api
@@ -58,7 +58,7 @@ $ dotnet build
 $ dotnet run
 ```
 
-### *1.4 - Test the Application*
+### *1.4 - See the app in the browser*
 
 Open the following URL in a browser
 
@@ -157,9 +157,7 @@ $ docker images
 
 
 
-## **Step 3 - Run the App in Local Docker Container**
-
- 
+## **Step 3 - Run the app in Local Docker Container**
 
 ### *3.1 - Run On Localhost*
 
@@ -171,13 +169,17 @@ $ docker run -p 8080:80 ersenbasaransen/docker-dotnetcore-api
 
 Now the image is running as a container.
 
-**The “-p” flag** – this is a port-mapping, in this case it’s saying map port 8080 on local PC to port 80 of the container. So to access the api, we need to use port 8080 as follows:
+**The “-p” flag** – this is a port-mapping, in this case it’s saying map port 8080 on local PC to port 80 of the container.
+
+### 3.2 - See the app in the browser
+
+To access the API, we need to use port 8080 as follows:
 
 ![image-20200719130322937](img/image-20200719130322937.png)
 
 This will map through to the “Exposed” port 80 specified in the Dockerfile, you should see the same output as before.
 
-### *3.2 - See the Currently Running Container*
+### *3.3 - See the Currently Running Containers*
 
 ```
 $ docker ps
@@ -193,7 +195,7 @@ If your are using VS Code and installed the Docker extension I mentioned above y
 
 ![image-20200719130752862](img/image-20200719130752862.png)
 
-### *3.3 - Stopping the Container*
+### *3.4 - Stopping the Container*
 
 ```
 $ docker stop <ContainerId>
@@ -202,4 +204,60 @@ $ docker stop <ContainerId>
 ![image-20200719131055434](img/image-20200719131055434.png)
 
 You can also use the VS Code Docker extension to do so!
+
+## **Step 4 - Push to Dockerhub**
+
+The real power of Docker is when we come to deploy it elsewhere, and the ease with which that can be achieved. At this point you need to have a Docker Hub Account.
+
+#### About Docker Hub?
+
+Docker Hub is a repository where you can find Docker Images, these can be from full-on software vendors, or individuals. Browsing https://hub.docker.com you will see images available for download:
+
+### *4.1 - Login to Docker Hub*
+
+To push an image to your Docker Hub, it is needed to login to Docker Hub, at a command prompt type:
+
+```
+$ docker login
+```
+
+***Tip :*** If you are already signed with Docker Desktop client it will authenticate you with existing credentials.
+
+![image-20200719141906210](img/image-20200719141906210.png)
+
+### *4.2 - Push the Image* to Docker Hub
+
+```
+$ docker push <ImageName>
+```
+
+Now our .NET Core API image is available for the use of others!
+
+
+
+![image-20200719142147889](img/image-20200719142147889.png)
+
+## **Step 5 - Pull to and Run from other hosts**
+
+Just to prove the point that containers are fully self-contained, independent deployable apps we will pull and run the image from a machine with nothing installed on it but Docker.
+
+### *5.1 - Run the Container App*
+
+```
+$ docker run -p 8080:80 ersenbasaransen/docker-dotnetcore-api
+```
+
+Docker will first search the image locally and if the image is not found, it will go to Docker Hub, pull down the image and run it. It’s no different from the run command issued against the local image.
+
+### *5.2 - See the app in the browser*
+
+```
+$ docker run -p 8080:80 ersenbasaransen/docker-dotnetcore-api
+```
+
+Again browse the same URL and the container app will return the JSON response.
+
+```
+http://localhost:8080/WeatherForecast
+```
 

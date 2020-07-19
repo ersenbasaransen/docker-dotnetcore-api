@@ -260,7 +260,7 @@ Docker will first search the image locally and if the image is not found, it wil
 $ docker run -p 8080:80 ersenbasaransen/docker-dotnetcore-api
 ```
 
-Again browse the same URL and the container app will return the JSON response.
+Browse the URL and the container app will return the JSON response.
 
 ```
 http://localhost:8080/WeatherForecast

@@ -26,7 +26,7 @@ When an image is “executed to run”, in runs in a container, which is highly 
 
 # Overall Docker Deployment Flow
 
-![See it in the browser](img\deployment-flow.png)
+![See it in the browser](img/deployment-flow.png)
 
 
 # **End to End Steps**
@@ -66,7 +66,7 @@ Open the following URL in a browser
 https://localhost:5001/WeatherForecast
 ```
 
-![See it in the browser](img\seeitinbrowser.png)
+![See it in the browser](img/seeitinbrowser.png)
 
 ## **Step 2 - Create Docker Image**
 To run an app in Docker we need to create an image, we do this by a “Dockerfile”. The Dockerfile defines the image to be created.
@@ -83,7 +83,7 @@ Add a file named Dockerfile (without any extension) in the root project folder.
 
 **Tip :** Visual Studio Code has an extension which provides Dockerfile sytnax parsing and IntelliSense
 
-![image-20200719113919824](img\image-20200719113919824.png)
+![image-20200719113919824](img/image-20200719113919824.png)
 
 
 
@@ -91,7 +91,7 @@ Add a file named Dockerfile (without any extension) in the root project folder.
 
 
 
-![image-20200719115128542](img\image-20200719115128542.png)
+![image-20200719115128542](img/image-20200719115128542.png)
 
 Line by Line explanation;
 
@@ -153,37 +153,37 @@ docker build command will build and tag the image.
 $ docker images
 ```
 
-![image-20200719122359745](img\image-20200719122359745.png)
+![image-20200719122359745](img/image-20200719122359745.png)
 
 
 
-## **Step 3 - Run the App in Container Natively Locally**
+## **Step 3 - Run the App in Local Docker Container**
 
  
 
-### *2.4 - Run On Localhost*
+### *3.1 - Run On Localhost*
 
 ```
 $ docker run -p 8080:80 ersenbasaransen/docker-dotnetcore-api
 ```
 
-![image-20200719122842394](img\image-20200719122842394.png)
+![image-20200719122842394](img/image-20200719122842394.png)
 
 Now the image is running as a container.
 
 **The “-p” flag** – this is a port-mapping, in this case it’s saying map port 8080 on local PC to port 80 of the container. So to access the api, we need to use port 8080 as follows:
 
-![image-20200719130322937](img\image-20200719130322937.png)
+![image-20200719130322937](img/image-20200719130322937.png)
 
 This will map through to the “Exposed” port 80 specified in the Dockerfile, you should see the same output as before.
 
-### *2.5 - See the Currently Running Container*
+### *3.2 - See the Currently Running Container*
 
 ```
 $ docker ps
 ```
 
-![image-20200719130623783](img\image-20200719130623783.png)
+![image-20200719130623783](img/image-20200719130623783.png)
 
 
 
@@ -191,15 +191,15 @@ If your are using VS Code and installed the Docker extension I mentioned above y
 
 
 
-![image-20200719130752862](img\image-20200719130752862.png)
+![image-20200719130752862](img/image-20200719130752862.png)
 
-### *2.6 - Stopping the Container*
+### *3.3 - Stopping the Container*
 
 ```
 $ docker stop <ContainerId>
 ```
 
-![image-20200719131055434](img\image-20200719131055434.png)
+![image-20200719131055434](img/image-20200719131055434.png)
 
 You can also use the VS Code Docker extension to do so!
 

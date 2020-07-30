@@ -31,7 +31,7 @@ When an image is “executed to run”, it runs in a container, which is highly 
 
 ### Overall Dockerizing Flow
 
-![See it in the browser](img/deployment-flow.png)
+<img src="img/deployment-flow.png" alt="deployment-flow" style="zoom: 67%;" />
 
 
 ## Steps to Execute
@@ -144,7 +144,9 @@ $ docker build -t ersenbasaransen/docket-dotnercore-api .
 
 The standard Docker Image naming convention is like this;
 
+```
 <Docker Hub ID>/<Project Name>:<Version>
+```
 
 In my case it is ersenbasaransen/docket-dotnercore-api. In your case give a name that suits you best.
 
